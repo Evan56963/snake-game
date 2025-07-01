@@ -154,6 +154,29 @@ function startGame() {
     }
 }
 
+// 觸控按鈕支援
+function setDirection(dir) {
+    if (!isGameRunning) return;
+    if (dir === 'up' && direction !== 'down') direction = 'up';
+    if (dir === 'down' && direction !== 'up') direction = 'down';
+    if (dir === 'left' && direction !== 'right') direction = 'left';
+    if (dir === 'right' && direction !== 'left') direction = 'right';
+}
+
+document.getElementById('btn-up')?.addEventListener('touchstart', e => { e.preventDefault(); setDirection('up'); });
+document.getElementById('btn-down')?.addEventListener('touchstart', e => { e.preventDefault(); setDirection('down'); });
+document.getElementById('btn-left')?.addEventListener('touchstart', e => { e.preventDefault(); setDirection('left'); });
+document.getElementById('btn-right')?.addEventListener('touchstart', e => { e.preventDefault(); setDirection('right'); });
+
+// 讓觸控按鈕在手機上顯示
+function showTouchControlsIfMobile() {
+    if (window.innerWidth <= 600) {
+        document.querySelector('.touch-controls').style.display = 'flex';
+    }
+}
+window.addEventListener('load', showTouchControlsIfMobile);
+window.addEventListener('resize', showTouchControlsIfMobile);
+
 // 鍵盤控制
 document.addEventListener('keydown', (event) => {
     if (!isGameRunning) return;
